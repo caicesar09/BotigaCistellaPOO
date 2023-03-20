@@ -23,12 +23,13 @@ namespace BotigaCistellaApp
         public int NumElements { get; set; }
 
         // Constructors
-        public Botiga() { nElements = 0; }
+        public Botiga() { nElements = 0; productes = new Producte[nElements]; }
 
         public Botiga(string nomBotiga, int nElements)
         {
             this.nomBotiga = nomBotiga;
             this.nElements = nElements;
+            productes = new Producte[nElements];
         }
 
         public Botiga(string nomBotiga, Producte[] productes, int nElements) : this(nomBotiga, nElements)
@@ -40,7 +41,7 @@ namespace BotigaCistellaApp
         
         public int EspaiLliure()
         {
-            return -1;
+            return productes.Length - nElements;
         }
 
         public int Indexador()
@@ -50,56 +51,91 @@ namespace BotigaCistellaApp
 
         public bool AfegirProducte(Producte producte)
         {
-            return false;
+            if (nElements < productes.Length) productes[nElements] = producte; nElements++;
+            return nElements < productes.Length;
         }
 
         public void AmpliarBotiga(int ampliacio)
         {
-
+            Array.Resize(ref productes, productes.Length + ampliacio);
         }
 
-        public bool ModificarPreu(string producte, double preu)
+        public void ModificarPreu(Producte producte, double preu)
         {
-            return false;
+            int indexProducte = BuscarProducte(producte);
+            if (indexProducte != 0)
+                productes[indexProducte].PreuSenseIva = preu; 
         }
 
-        public bool BuscarProducte(Producte producte)
+        public int BuscarProducte(Producte producte)
         {
-            return false;
+            int index = 0;
+            for (int i = 0; i < nElements; i++) if (producte.Nom == productes[i].Nom) index = i;
+            return index;
         }
 
-        public bool ModificarProducte(Producte producte, string nouNom, double nouPreu, int novaQuantitat)
+        public void ModificarProducte(Producte producte, string nouNom, double nouPreu, int novaQuantitat)
         {
-            return false;
+            int indexProducte = BuscarProducte(producte);
+            if (indexProducte != 0)
+            {
+                productes[indexProducte].Nom = nouNom;
+                productes[indexProducte].PreuSenseIva = nouPreu;
+                productes[indexProducte].Quantitat = novaQuantitat;
+            }
         }
 
-        public bool OrdenarProducte()
+        /*
+        public void OrdenarProducte()
         {
-            return false;
+            for (int numVolta = 0; numVolta < nElements - 1; numVolta++)
+            {
+                for (int i = 0; i < nElements - 1; i++)
+                {
+                    Producte actual = productes[i];
+                    Producte seguent = productes[i + 1];
+                    if (actual > seguent) // Override
+                    {
+                        int aux = actual;
+                        actual = seguent;
+                        seguent = aux;
+
+                        productes[i] = actual;
+                        productes[i + 1] = seguent;
+                    }
+                }
+            }
         }
+        */
 
         public bool OrdenarPreus()
         {
             return false;
         }
 
-        public bool EsborrarProducte(Producte producte)
+        public void EsborrarProducte(Producte producte)
         {
-            return false;
+            int indexProducte = BuscarProducte(producte);
+            if (indexProducte != 0)
+            {
+                productes[indexProducte].Nom = "";
+                productes[indexProducte].PreuSenseIva = 0;
+                productes[indexProducte].Quantitat = 0;
+            }
         }
 
         public void Mostrar()
         {
-
+            Console.WriteLine(ToString());
         }
 
         public override string ToString()
         {
-            string res = String.Empty;
-         
-            for (int i = 0; i < productes.Length; i++)
+            string res = "";
+
+            if (nElements > 0) 
             {
-                Console.WriteLine(productes[i].Nom);
+                for (int i = 0; i < nElements; i++) res += $"Nom: {productes[i].Nom}\n";
             }
 
             return res;

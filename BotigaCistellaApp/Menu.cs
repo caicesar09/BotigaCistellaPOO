@@ -18,6 +18,7 @@ namespace BotigaCistellaApp
         private static int opcioActiva = 0;
 
         // Propietats
+        public string Titol { get { return titol;  } set { titol = value;  } }
         public int OpcioSeleccionada { get { return opcioSeleccionada; } set { opcioSeleccionada = value; } }
 
         // Constructors
@@ -78,10 +79,10 @@ namespace BotigaCistellaApp
 
                     case ConsoleKey.Enter:
                         menuObert = false;
+                        opcioSeleccionada = opcioActiva;
+                        opcioActiva = 0;
                         break;
                 }
-
-                opcioSeleccionada = opcioActiva;
             }
         }
         public void CentrarText(string txt, bool novaLinia = true)
@@ -91,7 +92,7 @@ namespace BotigaCistellaApp
             else Console.Write(txt);
         }
 
-        public void Esperar(int milisegons = 5000)
+        public void Esperar(int milisegons = 2000)
         {
             for (int i = milisegons / 1000; i != 0; i--)
             {

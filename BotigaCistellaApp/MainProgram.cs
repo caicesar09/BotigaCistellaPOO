@@ -15,9 +15,7 @@ namespace BotigaCistella
     internal class MainProgram
     {
 
-        
-
-        private static Botiga botiga = new Botiga("Mercadona", 20);
+        private static Botiga botiga = new Botiga("Mercadona", 0);
         
         static void Main(string[] args)
         {
@@ -73,43 +71,11 @@ namespace BotigaCistella
             };
 
             Menu menu = new Menu(titol, opcions, ConsoleColor.White, ConsoleColor.Yellow);
-
             menu.MostrarMenu();
-
-            switch (menu.OpcioSeleccionada)
-            {
-                // Afegir productes
-                case 0:
-                    string nomProducte;
-                    double preuProducte;
-                    double iva;
-                    int quantitat;
-
-                    Console.Clear();
-
-                    Console.Write("Nom: "); nomProducte = Console.ReadLine();
-                    Console.Write("Preu: "); preuProducte = Convert.ToDouble(Console.ReadLine());
-                    Console.Write("IVA: "); iva = Convert.ToDouble(Console.ReadLine());
-                    Console.Write("Quantitat: "); quantitat = Convert.ToInt32(Console.ReadLine());
-
-                    Producte producte = new Producte(nomProducte, preuProducte, iva, quantitat);
-                    botiga.AfegirProducte(producte);
-
-                    menu.Esperar();
-
-                    ObrirBotiga();
-
-                    break; 
-                case 1: Console.WriteLine("Eliminar productes"); break;
-                case 2: Console.WriteLine("Modificar productes"); break;
-                case 3: botiga.ToString(); break;
-                case 4:
-                    TancarSessio();
-                    break;
-            }
+            ControlarInput(menu);
         }
 
-        private static void ObrirCistella()
+        public static void ObrirCistella()
         {
             string titol = "CISTELLA";
             string[] opcions = {
@@ -120,17 +86,67 @@ namespace BotigaCistella
             };
 
             Menu menu = new Menu(titol, opcions, ConsoleColor.White, ConsoleColor.Yellow);
-
             menu.MostrarMenu();
+            ControlarInput(menu);
+        }
 
-            switch (menu.OpcioSeleccionada)
+        public static void ControlarInput(Menu menu)
+        {
+            if (menu.Titol == "BOTIGA")
             {
-                case 0: Console.WriteLine("Comprar productes"); break;
-                case 1: Console.WriteLine("Ordenar cistella"); break;
-                case 2: Console.WriteLine("Mostrar cistella"); break;
-                case 3:
-                    TancarSessio();
-                    break;
+                switch (menu.OpcioSeleccionada)
+                {
+                    case 0:
+                        string nomProducte;
+                        double preuProducte;
+                        double iva;
+                        int quantitat;
+
+                        Console.Clear();
+
+                        Console.Write("Nom: "); nomProducte = Console.ReadLine();
+                        Console.Write("Preu: "); preuProducte = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("IVA: "); iva = Convert.ToDouble(Console.ReadLine());
+                        Console.Write("Quantitat: "); quantitat = Convert.ToInt32(Console.ReadLine());
+
+                        Producte producte = new Producte(nomProducte, preuProducte, iva, quantitat);
+                        botiga.AfegirProducte(producte);
+
+                        menu.Esperar();
+                        ObrirBotiga();
+
+                        break;
+
+                    case 1:
+                        Console.WriteLine("Eliminar productes");
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Modificar productes");
+                        break;
+                    case 3:
+                        Console.Clear();
+                        botiga.Mostrar();
+                        menu.Esperar();
+                        ObrirBotiga();
+                        break;
+                    case 4:
+                        TancarSessio();
+                        break;
+
+                }
+            }
+            else
+            {
+                switch (menu.OpcioSeleccionada)
+                {
+                    case 0: Console.WriteLine("Comprar productes"); break;
+                    case 1: Console.WriteLine("Ordenar cistella"); break;
+                    case 2: Console.WriteLine("Mostrar cistella"); break;
+                    case 3:
+                        TancarSessio();
+                        break;
+                }
             }
         }
 
