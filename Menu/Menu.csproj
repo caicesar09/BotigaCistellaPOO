@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D617FBF1-0191-4BA3-9ECA-B52ADF11F53C}</ProjectGuid>
+    <ProjectGuid>{830116AB-512B-45F3-AF9A-6D3ADB4994C0}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>BotigaCistellaApp</RootNamespace>
-    <AssemblyName>BotigaCistellaApp</AssemblyName>
+    <RootNamespace>Menu</RootNamespace>
+    <AssemblyName>Menu</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,11 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Botiga.cs" />
-    <Compile Include="Cistella.cs" />
-    <Compile Include="MainProgram.cs" />
-    <Compile Include="Menu.cs" />
-    <Compile Include="Producte.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
